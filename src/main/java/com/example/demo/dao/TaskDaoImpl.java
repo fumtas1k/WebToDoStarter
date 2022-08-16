@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import com.example.demo.entity.Task;
 import com.example.demo.entity.TaskType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,7 @@ public class TaskDaoImpl implements TaskDao {
 
 	private final JdbcTemplate jdbcTemplate;
 
+	@Autowired
 	public TaskDaoImpl(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
@@ -26,8 +28,6 @@ public class TaskDaoImpl implements TaskDao {
 		String sql = "SELECT task.id, user_id, type_id, title, detail, deadline, "
 				+ "type, comment FROM task "
 				+ "INNER JOIN task_type ON task.type_id = task_type.id";
-
-		//削除してください
 
 		//タスク一覧をMapのListで取得
 		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql);
